@@ -1,0 +1,73 @@
+/* =========================
+   GLOBAL TABLE COMPACT
+========================= */
+
+.table {
+  font-size: 14px;
+  width: 100% !important;
+}
+
+.table th,
+.table td {
+  padding: 0.45rem 0.65rem !important;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.table td:nth-child(2),
+.table td:nth-child(3) {
+  white-space: normal;
+}
+
+/* DATATABLE */
+.dataTables_wrapper .dataTables_filter input {
+  min-height: 32px;
+  padding: 4px 10px;
+  font-size: 14px;
+}
+
+.dataTables_wrapper .dataTables_length select {
+  min-height: 32px;
+  font-size: 14px;
+}
+
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate {
+  font-size: 14px;
+}
+
+/* BUTTON */
+.btn-sm {
+  padding: 0.2rem 0.55rem;
+  font-size: 12px;
+}
+
+/* BADGE */
+.badge {
+  font-size: 11px;
+}
+
+/* FORM */
+.form-control,
+.form-select {
+  min-height: 38px;
+  font-size: 13px;
+}
+
+/* CARD */
+.card-body {
+  padding: 1rem;
+}
+
+.btn-icon {
+  width: 28px;
+  height: 28px;
+  padding: 0 !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon i {
+  font-size: 14px;
+}
