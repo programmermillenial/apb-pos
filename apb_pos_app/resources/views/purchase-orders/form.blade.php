@@ -173,11 +173,11 @@
 </div>
 
 <div class="text-end">
-    <a href="{{ route('products.index') }}" class="btn btn-light">
+    <a href="{{ route('purchase-orders.index') }}" class="btn btn-light">
         Kembali
     </a>
 
-    <button type="submit" class="btn btn-primary">
+    <button type="submit" class="btn btn-primary" data-loading="true">
         {{ $button }}
     </button>
 </div>

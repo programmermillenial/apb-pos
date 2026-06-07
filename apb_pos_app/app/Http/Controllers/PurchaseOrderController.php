@@ -41,6 +41,7 @@ class PurchaseOrderController extends Controller
                         'submitted' => '<span class="badge bg-info">Submitted</span>',
                         'approved' => '<span class="badge bg-success">Approved</span>',
                         'cancelled' => '<span class="badge bg-danger">Cancelled</span>',
+                        'partial_received' => '<span class="badge bg-warning">Partial Received</span>',
                         'received' => '<span class="badge bg-primary">Received</span>',
                         default => '<span class="badge bg-light text-dark">Unknown</span>',
                     };

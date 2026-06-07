@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\GoodsReceiptController;
 use App\Http\Controllers\OutletController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
@@ -56,10 +57,14 @@ Route::middleware('auth')->group(function () {
     Route::get('purchase-orders/datatable', [PurchaseOrderController::class, 'datatable'])->name('purchase-orders.datatable');
     Route::get('purchase-orders/product-search', [PurchaseOrderController::class, 'productSearch'])->name('purchase-orders.product-search');
     Route::resource('purchase-orders', PurchaseOrderController::class);
-
     Route::post('purchase-orders/{id}/submit', [PurchaseOrderController::class, 'submit'])->name('purchase-orders.submit');
     Route::post('purchase-orders/{id}/approve', [PurchaseOrderController::class, 'approve'])->name('purchase-orders.approve');
     Route::post('purchase-orders/{id}/cancel', [PurchaseOrderController::class, 'cancel'])->name('purchase-orders.cancel');
+
+    Route::get('goods-receipts/datatable', [GoodsReceiptController::class, 'datatable'])->name('goods-receipts.datatable');
+    Route::get('goods-receipts/search-po', [GoodsReceiptController::class, 'searchPurchaseOrder'])->name('goods-receipts.search-po');
+    Route::get('goods-receipts/po-details/{id}', [GoodsReceiptController::class, 'getPurchaseOrderDetails'])->name('goods-receipts.po-details');
+    Route::resource('goods-receipts', GoodsReceiptController::class);
 
 
 

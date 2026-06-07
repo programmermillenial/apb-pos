@@ -84,7 +84,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('brands.*') ? 'active' : '' }}" href="{{ route('brands.index') }}">
+                    <a class="nav-link {{ request()->routeIs('brands.*') ? 'active' : '' }}"
+                        href="{{ route('brands.index') }}">
                         <i class="icon">
                             <i class="ri-registered-line"></i>
                         </i>
@@ -93,7 +94,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('units.*') ? 'active' : '' }}" href="{{ route('units.index') }}">
+                    <a class="nav-link {{ request()->routeIs('units.*') ? 'active' : '' }}"
+                        href="{{ route('units.index') }}">
                         <i class="icon">
                             <i class="ri-custom-size"></i>
                         </i>
@@ -102,7 +104,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('products.*') ? 'active' : '' }}" href="{{ route('products.index') }}">
+                    <a class="nav-link {{ request()->routeIs('products.*') ? 'active' : '' }}"
+                        href="{{ route('products.index') }}">
                         <i class="icon">
                             <i class="ri-shopping-bag-line"></i>
                         </i>
@@ -131,11 +134,22 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('purchase-orders.*') ? 'active' : '' }}" href="{{ route('purchase-orders.index') }}">
+                    <a class="nav-link {{ request()->routeIs('purchase-orders.*') ? 'active' : '' }}"
+                        href="{{ route('purchase-orders.index') }}">
                         <i class="icon">
                             <i class="ri-truck-line"></i>
                         </i>
                         <span class="item-name">Purchase Order</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('goods-receipts.*') ? 'active' : '' }}"
+                        href="{{ route('goods-receipts.index') }}">
+                        <i class="icon">
+                            <i class="ri-inbox-archive-line"></i>
+                        </i>
+                        <span class="item-name">Goods Receipt</span>
                     </a>
                 </li>
 
@@ -180,7 +194,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('customers.*') ? 'active' : '' }}" href="{{ route('customers.index') }}">
+                    <a class="nav-link {{ request()->routeIs('customers.*') ? 'active' : '' }}"
+                        href="{{ route('customers.index') }}">
                         <i class="icon">
                             <i class="ri-user-3-line"></i>
                         </i>
@@ -189,7 +204,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('suppliers.*') ? 'active' : '' }}" href="{{ route('suppliers.index') }}">
+                    <a class="nav-link {{ request()->routeIs('suppliers.*') ? 'active' : '' }}"
+                        href="{{ route('suppliers.index') }}">
                         <i class="icon">
                             <i class="ri-user-3-line"></i>
                         </i>
@@ -238,7 +254,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('outlets.*') ? 'active' : '' }}" href="{{ route('outlets.index') }}">
+                    <a class="nav-link {{ request()->routeIs('outlets.*') ? 'active' : '' }}"
+                        href="{{ route('outlets.index') }}">
                         <i class="icon">
                             <i class="ri-store-2-line"></i>
                         </i>
@@ -247,7 +264,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}" href="{{ route('users.index') }}">
+                    <a class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}"
+                        href="{{ route('users.index') }}">
                         <i class="icon">
                             <i class="ri-user-settings-line"></i>
                         </i>

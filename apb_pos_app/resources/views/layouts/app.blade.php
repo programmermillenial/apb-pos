@@ -203,17 +203,8 @@
             display: none !important;
         }
 
-        .select2-dropdown {
-            border: 1px solid #dfe3e7 !important;
-            z-index: 9999 !important;
-        }
 
-        .select2-results__option {
-            font-size: 13px;
-            padding: 8px 12px;
-        }
-
-         /* ===============================
+        /* ===============================
             TRANSACTION TABLE / FORM TABLE
            ================================ */
         .transaction-detail-table tfoot th {
@@ -252,6 +243,108 @@
         .transaction-detail-table .po-grand-total-row .po-summary-value {
             color: #ffffff !important;
             font-size: 16px;
+        }
+
+        /* ===== COMPACT INPUT INSIDE TABLE ===== */
+        .table .form-control,
+        .table .form-select {
+            min-height: 34px;
+            height: 34px;
+            padding: 4px 8px;
+            font-size: 13px;
+            border-radius: 8px;
+        }
+
+        /* khusus input angka di table */
+        .table .received-qty {
+            width: 90px;
+            height: 32px;
+            min-height: 32px;
+            padding: 4px 8px;
+            font-size: 13px;
+            text-align: right;
+            margin: 0 auto;
+        }
+
+        /* biar td input lebih compact */
+        .table td:has(.received-qty) {
+            padding-top: 6px;
+            padding-bottom: 6px;
+            text-align: center;
+        }
+
+        /* focus tetap cakep tapi gak lebay */
+        .table .received-qty:focus {
+            box-shadow: 0 0 0 2px rgba(58, 87, 232, 0.15);
+        }
+
+        .table td.compact-input-cell {
+            padding: 6px 8px !important;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .table td.compact-input-cell .received-qty {
+            width: 80px;
+            height: 32px;
+            min-height: 32px;
+            padding: 4px 8px;
+            font-size: 13px;
+            text-align: right;
+            margin: 0 auto;
+            border-radius: 8px;
+        }
+
+        /* SELECT2 */
+
+        .select2-container {
+            width: 100% !important;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection,
+        .select2-container--default .select2-selection {
+            min-height: 42px !important;
+            border: 1px solid #dfe3e7 !important;
+            border-radius: 8px !important;
+            display: flex !important;
+            align-items: center !important;
+            background-color: #fff !important;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--single,
+        .select2-container--default .select2-selection--single {
+            height: 42px !important;
+            padding: 6px 10px !important;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--single .select2-selection__rendered,
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #232d42 !important;
+            font-size: 13px !important;
+            font-weight: 500;
+            line-height: 28px !important;
+            padding-left: 0 !important;
+            padding-right: 20px !important;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--single .select2-selection__arrow,
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 40px !important;
+            right: 8px !important;
+        }
+
+        .select2-selection__clear {
+            display: none !important;
+        }
+
+        .select2-dropdown {
+            border: 1px solid #dfe3e7 !important;
+            z-index: 9999 !important;
+        }
+
+        .select2-results__option {
+            font-size: 13px;
+            padding: 8px 12px;
         }
     </style>
 
