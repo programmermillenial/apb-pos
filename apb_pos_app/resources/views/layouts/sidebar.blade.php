@@ -125,11 +125,22 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                     <a class="nav-link {{ request()->routeIs('stock-adjustments.*') ? 'active' : '' }}"
+                        href="{{ route('stock-adjustments.index') }}">
                         <i class="icon">
                             <i class="ri-archive-line"></i>
                         </i>
                         <span class="item-name">Stock Adjustment</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('stock-opnames.*') ? 'active' : '' }}"
+                        href="{{ route('stock-opnames.index') }}">
+                        <i class="icon">
+                            <i class="ri-file-list-2-line"></i>
+                        </i>
+                        <span class="item-name">Stock Opname</span>
                     </a>
                 </li>
 
