@@ -164,6 +164,16 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('stock-transfers.*') ? 'active' : '' }}"
+                        href="{{ route('stock-transfers.index') }}">
+                        <i class="icon">
+                            <i class="ri-file-transfer-line"></i>
+                        </i>
+                        <span class="item-name">Stock Transfer</span>
+                    </a>
+                </li>
+
                 {{-- SALES --}}
                 <li>
                     <hr class="hr-horizontal">

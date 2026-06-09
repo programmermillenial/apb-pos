@@ -14,6 +14,7 @@ use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StockAdjustmentController;
 use App\Http\Controllers\StockOpnameController;
+use App\Http\Controllers\StockTransferController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
@@ -72,6 +73,12 @@ Route::middleware('auth')->group(function () {
     Route::get('stock-adjustments/product-search', [StockAdjustmentController::class, 'searchProduct'])->name('stock-adjustments.product-search');
     Route::resource('stock-adjustments', StockAdjustmentController::class);
     Route::post('stock-adjustments/{id}/approve', [StockAdjustmentController::class, 'approve'])->name('stock-adjustments.approve');
+
+    Route::get('stock-transfers/datatable', [StockTransferController::class, 'datatable'])->name('stock-transfers.datatable');
+    Route::get('stock-transfers/product-search', [StockTransferController::class, 'searchProduct'])->name('stock-transfers.product-search');
+    Route::resource('stock-transfers', StockTransferController::class);
+    Route::post('stock-transfers/{id}/approve', [StockTransferController::class, 'approve'])->name('stock-transfers.approve');
+    Route::post('stock-transfers/{id}/receive', [StockTransferController::class, 'receive'])->name('stock-transfers.receive');
 
     Route::get('stock-opnames/datatable', [StockOpnameController::class, 'datatable'])->name('stock-opnames.datatable');
     Route::get('stock-opnames/get-products', [StockOpnameController::class, 'getProducts'])->name('stock-opnames.get-products');

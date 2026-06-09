@@ -1,12 +1,13 @@
 <div class="row">
 
+    @if(!isset($product) || !$product->id)
     <div class="col-md-6 mb-3">
         <label class="form-label">Outlet</label>
         <select name="outlet_id" class="form-select @error('outlet_id') is-invalid @enderror">
             <option value="">Pilih Outlet</option>
             @foreach ($outlets as $outlet)
                 <option value="{{ $outlet->id }}"
-                    {{ old('outlet_id', $product->outlet_id ?? '') == $outlet->id ? 'selected' : '' }}>
+                    {{ old('outlet_id') == $outlet->id ? 'selected' : '' }}>
                     {{ $outlet->name }}
                 </option>
             @endforeach
@@ -15,6 +16,7 @@
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
+    @endif
 
     <div class="col-md-6 mb-3">
         <label class="form-label">Product Category</label>
@@ -101,7 +103,7 @@
 
     <div class="col-md-6 mb-3">
         <label class="form-label">Cost Price</label>
-        <input type="text" name="cost_price" id="cost_price" class="form-control currency"
+        <input type="text" name="cost_price" id="cost_price" class="form-control autonumeric"
             value="{{ old('cost_price', $product->cost_price ?? 0) }}">
         @error('cost_price')
             <div class="invalid-feedback">{{ $message }}</div>
@@ -110,21 +112,23 @@
 
     <div class="col-md-6 mb-3">
         <label class="form-label">Sell Price</label>
-        <input type="text" name="sell_price" id="sell_price" class="form-control currency"
+        <input type="text" name="sell_price" id="sell_price" class="form-control autonumeric"
             value="{{ old('sell_price', $product->sell_price ?? 0) }}">
         @error('sell_price')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
 
+    @if(!isset($product) || !$product->id)
     <div class="col-md-6 mb-3">
         <label class="form-label">Stock</label>
         <input type="number" name="stock" class="form-control @error('stock') is-invalid @enderror"
-            value="{{ old('stock', $product->stock ?? 0) }}">
+            value="{{ old('stock', 0) }}">
         @error('stock')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
+    @endif
 
     <div class="col-md-6 mb-3">
         <label class="form-label">Min Stock</label>
@@ -175,3 +179,11 @@
     </div>
 
 </div>
+
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        initAutoNumeric('.autonumeric');
+    });
+</script>
+@endpush

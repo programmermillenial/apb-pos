@@ -112,7 +112,7 @@ class StockAdjustmentController extends Controller
                 $note = $request->note[$key] ?? null;
 
                 $product = Product::findOrFail($productId);
-                $qtySystem = $product->stock;
+                $qtySystem = $product->getStockForOutlet($request->outlet_id);
                 $difference = $newStock - $qtySystem;
 
                 if ($difference == 0) {
@@ -200,7 +200,7 @@ class StockAdjustmentController extends Controller
                 $note = $request->note[$key] ?? null;
 
                 $product = Product::findOrFail($productId);
-                $qtySystem = $product->stock;
+                $qtySystem = $product->getStockForOutlet($request->outlet_id);
                 $difference = $newStock - $qtySystem;
 
                 if ($difference == 0) {
@@ -310,7 +310,9 @@ class StockAdjustmentController extends Controller
         $products = Product::query()
             ->where('is_active', 1)
             ->when($outletId, function ($query) use ($outletId) {
-                $query->where('outlet_id', $outletId);
+                $query->whereHas('productOutlets', function ($q) use ($outletId) {
+                    $q->where('outlet_id', $outletId);
+                });
             })
             ->when($search, function ($query) use ($search) {
                 $query->where(function ($q) use ($search) {
@@ -324,11 +326,11 @@ class StockAdjustmentController extends Controller
             ->get();
 
         return response()->json(
-            $products->map(function ($product) {
+            $products->map(function ($product) use ($outletId) {
                 return [
                     'id' => $product->id,
                     'text' => ($product->sku ? $product->sku . ' - ' : '') . $product->name,
-                    'current_stock' => $product->stock,
+                    'current_stock' => $product->getStockForOutlet($outletId),
                 ];
             })
         );

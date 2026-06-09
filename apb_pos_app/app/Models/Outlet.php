@@ -20,6 +20,13 @@ class Outlet extends Model
 
     public function products()
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsToMany(Product::class, 'product_outlets')
+            ->withPivot('stock', 'reorder_point')
+            ->withTimestamps();
+    }
+
+    public function productOutlets()
+    {
+        return $this->hasMany(ProductOutlet::class);
     }
 }

@@ -108,12 +108,24 @@ class StockOpnameController extends Controller
 
     public function getProducts(Request $request)
     {
-        $products = Product::where('outlet_id', $request->outlet_id)
+        $products = Product::whereHas('productOutlets', function ($query) use ($request) {
+            $query->where('outlet_id', $request->outlet_id);
+        })
             ->where('is_active', 1)
             ->orderBy('name')
-            ->get(['id', 'name', 'sku', 'stock']);
+            ->with(['productOutlets' => function ($query) use ($request) {
+                $query->where('outlet_id', $request->outlet_id);
+            }])
+            ->get(['id', 'name', 'sku']);
 
-        return response()->json($products);
+        return response()->json($products->map(function ($product) {
+            return [
+                'id' => $product->id,
+                'name' => $product->name,
+                'sku' => $product->sku,
+                'stock' => $product->productOutlets->first()?->stock ?? 0,
+            ];
+        }));
     }
 
     public function store(Request $request)
@@ -146,7 +158,7 @@ class StockOpnameController extends Controller
                 if (!$product) continue;
 
                 $qtyCounted = $this->clearNumber($request->qty_counted[$index]);
-                $qtySystem = $product->stock;
+                $qtySystem = $product->getStockForOutlet($request->outlet_id);
                 $difference = $qtyCounted - $qtySystem;
 
                 StockOpnameDetail::create([
@@ -221,7 +233,7 @@ class StockOpnameController extends Controller
                 if (!$product) continue;
 
                 $qtyCounted = $this->clearNumber($request->qty_counted[$index]);
-                $qtySystem = $product->stock;
+                $qtySystem = $product->getStockForOutlet($request->outlet_id);
                 $difference = $qtyCounted - $qtySystem;
 
                 StockOpnameDetail::create([
@@ -341,7 +353,9 @@ class StockOpnameController extends Controller
 
     private function getProductsForOpname(Request $request)
     {
-        $query = Product::where('outlet_id', $request->outlet_id)
+        $query = Product::whereHas('productOutlets', function ($q) use ($request) {
+            $q->where('outlet_id', $request->outlet_id);
+        })
             ->where('is_active', 1);
 
         if ($request->type === 'full') {

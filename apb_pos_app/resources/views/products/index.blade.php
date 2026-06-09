@@ -25,12 +25,11 @@
                                 <tr>
                                     <th>SKU</th>
                                     <th>Name</th>
-                                    <th>Outlet</th>
                                     <th>Category</th>
                                     <th>Brand</th>
                                     <th>Unit</th>
-                                    <th>Sell Price</th>
                                     <th>Stock</th>
+                                    <th>Sell Price</th>
                                     <th>Status</th>
                                     <th width="130" class="text-center">Action</th>
                                 </tr>
@@ -66,10 +65,6 @@
                         name: 'name'
                     },
                     {
-                        data: 'outlet',
-                        name: 'outlet.name'
-                    },
-                    {
                         data: 'category',
                         name: 'product_category.name',
                         searchable: false,
@@ -88,12 +83,12 @@
                         orderable: false
                     },
                     {
-                        data: 'sell_price',
-                        name: 'sell_price'
-                    },
-                    {
                         data: 'stock',
                         name: 'stock'
+                    },
+                    {
+                        data: 'sell_price',
+                        name: 'sell_price'
                     },
                     {
                         data: 'status',
@@ -110,7 +105,7 @@
                     },
                 ],
                 columnDefs: [{
-                    targets: [8, 9],
+                    targets: [6, 7],
                     className: 'text-center'
                 }]
             });

@@ -30,8 +30,22 @@
                             <td>{{ $product->name }}</td>
                         </tr>
                         <tr>
-                            <th>Outlet</th>
-                            <td>{{ $product->outlet->name ?? '-' }}</td>
+                            <th>Stock</th>
+                            <td>{{ $product->getTotalStock() ?? 0 }}</td>
+                        </tr>
+                        <tr>
+                            <th>Outlets</th>
+                            <td>
+                                @if($product->productOutlets->count() > 0)
+                                    <ul class="mb-0">
+                                        @foreach($product->productOutlets as $po)
+                                            <li>{{ $po->outlet->name }} - Stock: {{ number_format($po->stock, 0, ',', '.') }}</li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <span class="text-muted">-</span>
+                                @endif
+                            </td>
                         </tr>
                         <tr>
                             <th>Category</th>
@@ -56,10 +70,6 @@
                         <tr>
                             <th>Sell Price</th>
                             <td>Rp {{ number_format($product->sell_price, 0, ',', '.') }}</td>
-                        </tr>
-                        <tr>
-                            <th>Stock</th>
-                            <td>{{ $product->stock }}</td>
                         </tr>
                         <tr>
                             <th>Min Stock</th>
