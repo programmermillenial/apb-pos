@@ -45,4 +45,26 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Outlet::class);
     }
+
+    public function isSuperAdmin(): bool
+    {
+        return $this->role === 'superadmin';
+    }
+
+    public function canAccessAllOutlets(): bool
+    {
+        return $this->isSuperAdmin();
+    }
+
+    public function hasAnyRole(array $roles): bool
+    {
+        return $this->isSuperAdmin() || in_array($this->role, $roles, true);
+    }
+
+    public function canAccessMenu(string $menu): bool
+    {
+        $roles = config('role_access.menus.' . $menu, []);
+
+        return $this->hasAnyRole($roles);
+    }
 }

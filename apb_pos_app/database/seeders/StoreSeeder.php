@@ -19,6 +19,7 @@ class StoreSeeder extends Seeder
             'owner_name' => 'Anggun Pribadi',
             'phone' => '081288853755',
             'address' => 'Indonesia',
+            'tax_rate' => 0,
             'is_active' => true
         ]);
     }

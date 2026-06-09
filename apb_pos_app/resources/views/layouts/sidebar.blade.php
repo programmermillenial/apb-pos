@@ -49,6 +49,37 @@
     <div class="pt-0 sidebar-body data-scrollbar">
         <div class="sidebar-list">
 
+            @php
+                $menuUser = auth()->user();
+                $canSeeMaster = $menuUser && (
+                    $menuUser->canAccessMenu('product-categories') ||
+                    $menuUser->canAccessMenu('brands') ||
+                    $menuUser->canAccessMenu('units') ||
+                    $menuUser->canAccessMenu('products')
+                );
+                $canSeeInventory = $menuUser && (
+                    $menuUser->canAccessMenu('stock-adjustments') ||
+                    $menuUser->canAccessMenu('stock-opnames') ||
+                    $menuUser->canAccessMenu('purchase-orders') ||
+                    $menuUser->canAccessMenu('goods-receipts') ||
+                    $menuUser->canAccessMenu('stock-transfers')
+                );
+                $canSeeSales = $menuUser && (
+                    $menuUser->canAccessMenu('sales') ||
+                    $menuUser->canAccessMenu('sales-history')
+                );
+                $canSeeCustomer = $menuUser && (
+                    $menuUser->canAccessMenu('customers') ||
+                    $menuUser->canAccessMenu('suppliers')
+                );
+                $canSeeReport = $menuUser && $menuUser->canAccessMenu('reports');
+                $canSeeSettings = $menuUser && (
+                    $menuUser->canAccessMenu('setting') ||
+                    $menuUser->canAccessMenu('outlets') ||
+                    $menuUser->canAccessMenu('users')
+                );
+            @endphp
+
             <ul class="navbar-nav iq-main-menu" id="sidebar-menu">
 
                 {{-- DASHBOARD --}}
@@ -62,6 +93,7 @@
                     </a>
                 </li>
 
+                @if ($canSeeMaster)
                 {{-- MASTER DATA --}}
                 <li>
                     <hr class="hr-horizontal">
@@ -73,6 +105,7 @@
                     </a>
                 </li>
 
+                @if ($menuUser->canAccessMenu('product-categories'))
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('product-categories.*') ? 'active' : '' }}"
                         href="{{ route('product-categories.index') }}">
@@ -82,7 +115,9 @@
                         <span class="item-name">Product Category</span>
                     </a>
                 </li>
+                @endif
 
+                @if ($menuUser->canAccessMenu('brands'))
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('brands.*') ? 'active' : '' }}"
                         href="{{ route('brands.index') }}">
@@ -92,7 +127,9 @@
                         <span class="item-name">Brand</span>
                     </a>
                 </li>
+                @endif
 
+                @if ($menuUser->canAccessMenu('units'))
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('units.*') ? 'active' : '' }}"
                         href="{{ route('units.index') }}">
@@ -102,7 +139,9 @@
                         <span class="item-name">Unit</span>
                     </a>
                 </li>
+                @endif
 
+                @if ($menuUser->canAccessMenu('products'))
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('products.*') ? 'active' : '' }}"
                         href="{{ route('products.index') }}">
@@ -112,7 +151,10 @@
                         <span class="item-name">Products</span>
                     </a>
                 </li>
+                @endif
+                @endif
 
+                @if ($canSeeInventory)
                 {{-- INVENTORY --}}
                 <li>
                     <hr class="hr-horizontal">
@@ -124,6 +166,7 @@
                     </a>
                 </li>
 
+                @if ($menuUser->canAccessMenu('stock-adjustments'))
                 <li class="nav-item">
                      <a class="nav-link {{ request()->routeIs('stock-adjustments.*') ? 'active' : '' }}"
                         href="{{ route('stock-adjustments.index') }}">
@@ -133,7 +176,9 @@
                         <span class="item-name">Stock Adjustment</span>
                     </a>
                 </li>
+                @endif
 
+                @if ($menuUser->canAccessMenu('stock-opnames'))
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('stock-opnames.*') ? 'active' : '' }}"
                         href="{{ route('stock-opnames.index') }}">
@@ -143,7 +188,9 @@
                         <span class="item-name">Stock Opname</span>
                     </a>
                 </li>
+                @endif
 
+                @if ($menuUser->canAccessMenu('purchase-orders'))
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('purchase-orders.*') ? 'active' : '' }}"
                         href="{{ route('purchase-orders.index') }}">
@@ -153,7 +200,9 @@
                         <span class="item-name">Purchase Order</span>
                     </a>
                 </li>
+                @endif
 
+                @if ($menuUser->canAccessMenu('goods-receipts'))
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('goods-receipts.*') ? 'active' : '' }}"
                         href="{{ route('goods-receipts.index') }}">
@@ -163,7 +212,9 @@
                         <span class="item-name">Goods Receipt</span>
                     </a>
                 </li>
+                @endif
 
+                @if ($menuUser->canAccessMenu('stock-transfers'))
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('stock-transfers.*') ? 'active' : '' }}"
                         href="{{ route('stock-transfers.index') }}">
@@ -173,7 +224,10 @@
                         <span class="item-name">Stock Transfer</span>
                     </a>
                 </li>
+                @endif
+                @endif
 
+                @if ($canSeeSales)
                 {{-- SALES --}}
                 <li>
                     <hr class="hr-horizontal">
@@ -185,24 +239,32 @@
                     </a>
                 </li>
 
+                @if ($menuUser->canAccessMenu('sales'))
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link {{ request()->routeIs('sales.index') ? 'active' : '' }}"
+                        href="{{ route('sales.index') }}">
                         <i class="icon">
                             <i class="ri-shopping-cart-line"></i>
                         </i>
                         <span class="item-name">Sales</span>
                     </a>
                 </li>
+                @endif
 
+                @if ($menuUser->canAccessMenu('sales-history'))
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link {{ request()->routeIs('sales.history', 'sales.show') ? 'active' : '' }}"
+                        href="{{ route('sales.history') }}">
                         <i class="icon">
                             <i class="ri-file-list-3-line"></i>
                         </i>
                         <span class="item-name">Sales History</span>
                     </a>
                 </li>
+                @endif
+                @endif
 
+                @if ($canSeeCustomer)
                 {{-- CUSTOMER --}}
                 <li>
                     <hr class="hr-horizontal">
@@ -214,6 +276,7 @@
                     </a>
                 </li>
 
+                @if ($menuUser->canAccessMenu('customers'))
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('customers.*') ? 'active' : '' }}"
                         href="{{ route('customers.index') }}">
@@ -223,7 +286,9 @@
                         <span class="item-name">Customers</span>
                     </a>
                 </li>
+                @endif
 
+                @if ($menuUser->canAccessMenu('suppliers'))
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('suppliers.*') ? 'active' : '' }}"
                         href="{{ route('suppliers.index') }}">
@@ -233,7 +298,10 @@
                         <span class="item-name">Suppliers</span>
                     </a>
                 </li>
+                @endif
+                @endif
 
+                @if ($canSeeReport)
                 {{-- REPORT --}}
                 <li>
                     <hr class="hr-horizontal">
@@ -262,7 +330,9 @@
                         <span class="item-name">Profit Report</span>
                     </a>
                 </li>
+                @endif
 
+                @if ($canSeeSettings)
                 {{-- SETTINGS --}}
                 <li>
                     <hr class="hr-horizontal">
@@ -274,6 +344,19 @@
                     </a>
                 </li>
 
+                @if ($menuUser->canAccessMenu('setting'))
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('setting.*') ? 'active' : '' }}"
+                        href="{{ route('setting.index') }}">
+                        <i class="icon">
+                            <i class="ri-settings-3-line"></i>
+                        </i>
+                        <span class="item-name">Store Setting</span>
+                    </a>
+                </li>
+                @endif
+
+                @if ($menuUser->canAccessMenu('outlets'))
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('outlets.*') ? 'active' : '' }}"
                         href="{{ route('outlets.index') }}">
@@ -283,7 +366,9 @@
                         <span class="item-name">Outlet</span>
                     </a>
                 </li>
+                @endif
 
+                @if ($menuUser->canAccessMenu('users'))
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}"
                         href="{{ route('users.index') }}">
@@ -293,6 +378,8 @@
                         <span class="item-name">Users</span>
                     </a>
                 </li>
+                @endif
+                @endif
 
             </ul>
         </div>

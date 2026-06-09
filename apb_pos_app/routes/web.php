@@ -33,63 +33,67 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('product-categories/datatable', [ProductCategoryController::class, 'datatable'])->name('product-categories.datatable');
-    Route::resource('product-categories', ProductCategoryController::class);
+    Route::get('product-categories/datatable', [ProductCategoryController::class, 'datatable'])->name('product-categories.datatable')->middleware('role:manager');
+    Route::resource('product-categories', ProductCategoryController::class)->middleware('role:manager');
 
-    Route::get('brands/datatable', [BrandController::class, 'datatable'])->name('brands.datatable');
-    Route::resource('brands', BrandController::class);
+    Route::get('brands/datatable', [BrandController::class, 'datatable'])->name('brands.datatable')->middleware('role:manager');
+    Route::resource('brands', BrandController::class)->middleware('role:manager');
 
-    Route::get('units/datatable', [UnitController::class, 'datatable'])->name('units.datatable');
-    Route::resource('units', UnitController::class);
+    Route::get('units/datatable', [UnitController::class, 'datatable'])->name('units.datatable')->middleware('role:manager');
+    Route::resource('units', UnitController::class)->middleware('role:manager');
 
-    Route::get('products/datatable', [ProductController::class, 'datatable'])->name('products.datatable');
-    Route::resource('products', ProductController::class);
+    Route::get('products/datatable', [ProductController::class, 'datatable'])->name('products.datatable')->middleware('role:manager,logistic');
+    Route::resource('products', ProductController::class)->middleware('role:manager,logistic');
 
-    Route::get('suppliers/datatable', [SupplierController::class, 'datatable'])->name('suppliers.datatable');
-    Route::resource('suppliers', SupplierController::class);
+    Route::get('suppliers/datatable', [SupplierController::class, 'datatable'])->name('suppliers.datatable')->middleware('role:manager,logistic');
+    Route::resource('suppliers', SupplierController::class)->middleware('role:manager,logistic');
 
-    Route::get('customers/datatable', [CustomerController::class, 'datatable'])->name('customers.datatable');
-    Route::resource('customers', CustomerController::class);
+    Route::get('customers/datatable', [CustomerController::class, 'datatable'])->name('customers.datatable')->middleware('role:manager,cashier');
+    Route::resource('customers', CustomerController::class)->middleware('role:manager,cashier');
 
-    Route::get('outlets/datatable', [OutletController::class, 'datatable'])->name('outlets.datatable');
-    Route::resource('outlets', OutletController::class);
+    Route::get('outlets/datatable', [OutletController::class, 'datatable'])->name('outlets.datatable')->middleware('role:superadmin');
+    Route::resource('outlets', OutletController::class)->middleware('role:superadmin');
 
-    Route::get('users/datatable', [UserController::class, 'datatable'])->name('users.datatable');
-    Route::resource('users', UserController::class);
+    Route::get('users/datatable', [UserController::class, 'datatable'])->name('users.datatable')->middleware('role:superadmin');
+    Route::resource('users', UserController::class)->middleware('role:superadmin');
 
-    Route::get('purchase-orders/datatable', [PurchaseOrderController::class, 'datatable'])->name('purchase-orders.datatable');
-    Route::get('purchase-orders/product-search', [PurchaseOrderController::class, 'productSearch'])->name('purchase-orders.product-search');
-    Route::resource('purchase-orders', PurchaseOrderController::class);
-    Route::post('purchase-orders/{id}/submit', [PurchaseOrderController::class, 'submit'])->name('purchase-orders.submit');
-    Route::post('purchase-orders/{id}/approve', [PurchaseOrderController::class, 'approve'])->name('purchase-orders.approve');
-    Route::post('purchase-orders/{id}/cancel', [PurchaseOrderController::class, 'cancel'])->name('purchase-orders.cancel');
+    Route::get('purchase-orders/datatable', [PurchaseOrderController::class, 'datatable'])->name('purchase-orders.datatable')->middleware('role:manager,logistic');
+    Route::get('purchase-orders/product-search', [PurchaseOrderController::class, 'productSearch'])->name('purchase-orders.product-search')->middleware('role:manager,logistic');
+    Route::resource('purchase-orders', PurchaseOrderController::class)->middleware('role:manager,logistic');
+    Route::post('purchase-orders/{id}/submit', [PurchaseOrderController::class, 'submit'])->name('purchase-orders.submit')->middleware('role:manager,logistic');
+    Route::post('purchase-orders/{id}/approve', [PurchaseOrderController::class, 'approve'])->name('purchase-orders.approve')->middleware('role:manager,logistic');
+    Route::post('purchase-orders/{id}/cancel', [PurchaseOrderController::class, 'cancel'])->name('purchase-orders.cancel')->middleware('role:manager,logistic');
 
-    Route::get('goods-receipts/datatable', [GoodsReceiptController::class, 'datatable'])->name('goods-receipts.datatable');
-    Route::get('goods-receipts/search-po', [GoodsReceiptController::class, 'searchPurchaseOrder'])->name('goods-receipts.search-po');
-    Route::get('goods-receipts/po-details/{id}', [GoodsReceiptController::class, 'getPurchaseOrderDetails'])->name('goods-receipts.po-details');
-    Route::resource('goods-receipts', GoodsReceiptController::class);
+    Route::get('goods-receipts/datatable', [GoodsReceiptController::class, 'datatable'])->name('goods-receipts.datatable')->middleware('role:manager,logistic,checker');
+    Route::get('goods-receipts/search-po', [GoodsReceiptController::class, 'searchPurchaseOrder'])->name('goods-receipts.search-po')->middleware('role:manager,logistic,checker');
+    Route::get('goods-receipts/po-details/{id}', [GoodsReceiptController::class, 'getPurchaseOrderDetails'])->name('goods-receipts.po-details')->middleware('role:manager,logistic,checker');
+    Route::resource('goods-receipts', GoodsReceiptController::class)->middleware('role:manager,logistic,checker');
 
-    Route::get('stock-adjustments/datatable', [StockAdjustmentController::class, 'datatable'])->name('stock-adjustments.datatable');
-    Route::get('stock-adjustments/product-search', [StockAdjustmentController::class, 'searchProduct'])->name('stock-adjustments.product-search');
-    Route::resource('stock-adjustments', StockAdjustmentController::class);
-    Route::post('stock-adjustments/{id}/approve', [StockAdjustmentController::class, 'approve'])->name('stock-adjustments.approve');
+    Route::get('stock-adjustments/datatable', [StockAdjustmentController::class, 'datatable'])->name('stock-adjustments.datatable')->middleware('role:manager,logistic,checker');
+    Route::get('stock-adjustments/product-search', [StockAdjustmentController::class, 'searchProduct'])->name('stock-adjustments.product-search')->middleware('role:manager,logistic,checker');
+    Route::resource('stock-adjustments', StockAdjustmentController::class)->middleware('role:manager,logistic,checker');
+    Route::post('stock-adjustments/{id}/approve', [StockAdjustmentController::class, 'approve'])->name('stock-adjustments.approve')->middleware('role:manager,logistic,checker');
 
-    Route::get('stock-transfers/datatable', [StockTransferController::class, 'datatable'])->name('stock-transfers.datatable');
-    Route::get('stock-transfers/product-search', [StockTransferController::class, 'searchProduct'])->name('stock-transfers.product-search');
-    Route::resource('stock-transfers', StockTransferController::class);
-    Route::post('stock-transfers/{id}/approve', [StockTransferController::class, 'approve'])->name('stock-transfers.approve');
-    Route::post('stock-transfers/{id}/receive', [StockTransferController::class, 'receive'])->name('stock-transfers.receive');
+    Route::get('stock-transfers/datatable', [StockTransferController::class, 'datatable'])->name('stock-transfers.datatable')->middleware('role:manager,logistic,picker,checker');
+    Route::get('stock-transfers/product-search', [StockTransferController::class, 'searchProduct'])->name('stock-transfers.product-search')->middleware('role:manager,logistic,picker,checker');
+    Route::resource('stock-transfers', StockTransferController::class)->middleware('role:manager,logistic,picker,checker');
+    Route::post('stock-transfers/{id}/approve', [StockTransferController::class, 'approve'])->name('stock-transfers.approve')->middleware('role:manager,logistic,picker,checker');
+    Route::post('stock-transfers/{id}/receive', [StockTransferController::class, 'receive'])->name('stock-transfers.receive')->middleware('role:manager,logistic,picker,checker');
 
-    Route::get('stock-opnames/datatable', [StockOpnameController::class, 'datatable'])->name('stock-opnames.datatable');
-    Route::get('stock-opnames/get-products', [StockOpnameController::class, 'getProducts'])->name('stock-opnames.get-products');
-    Route::resource('stock-opnames', StockOpnameController::class);
-    Route::post('stock-opnames/{id}/approve', [StockOpnameController::class, 'approve'])->name('stock-opnames.approve');
-
-
-
-    Route::resource('sales', SalesController::class);
-    Route::resource('report', ReportController::class);
-    Route::resource('setting', SettingController::class);
+    Route::get('stock-opnames/datatable', [StockOpnameController::class, 'datatable'])->name('stock-opnames.datatable')->middleware('role:manager,logistic,picker,checker');
+    Route::get('stock-opnames/get-products', [StockOpnameController::class, 'getProducts'])->name('stock-opnames.get-products')->middleware('role:manager,logistic,picker,checker');
+    Route::resource('stock-opnames', StockOpnameController::class)->middleware('role:manager,logistic,picker,checker');
+    Route::post('stock-opnames/{id}/approve', [StockOpnameController::class, 'approve'])->name('stock-opnames.approve')->middleware('role:manager,logistic,picker,checker');
+    Route::get('sales/datatable', [SalesController::class, 'datatable'])->name('sales.datatable')->middleware('role:manager,cashier');
+    Route::get('sales/history', [SalesController::class, 'history'])->name('sales.history')->middleware('role:manager,cashier');
+    Route::get('sales/product-search', [SalesController::class, 'productSearch'])->name('sales.product-search')->middleware('role:manager,cashier');
+    Route::get('sales/customer-search', [SalesController::class, 'customerSearch'])->name('sales.customer-search')->middleware('role:manager,cashier');
+    Route::post('sales/customer-store', [SalesController::class, 'customerStore'])->name('sales.customer-store')->middleware('role:manager,cashier');
+    Route::get('sales/{id}/receipt', [SalesController::class, 'receipt'])->name('sales.receipt')->middleware('role:manager,cashier');
+    Route::get('sales/{id}/receipt-pdf', [SalesController::class, 'receiptPdf'])->name('sales.receipt-pdf')->middleware('role:manager,cashier');
+    Route::resource('sales', SalesController::class)->middleware('role:manager,cashier');
+    Route::resource('report', ReportController::class)->middleware('role:manager');
+    Route::resource('setting', SettingController::class)->middleware('role:superadmin');
 });
 
 require __DIR__ . '/auth.php';

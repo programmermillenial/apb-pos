@@ -8,6 +8,11 @@ class Store extends Model
 {
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'tax_rate' => 'decimal:2',
+        'is_active' => 'boolean',
+    ];
+
     public function outlets()
     {
         return $this->hasMany(Outlet::class);
