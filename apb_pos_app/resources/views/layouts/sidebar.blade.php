@@ -314,7 +314,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link {{ request()->routeIs('reports.sales*') ? 'active' : '' }}"
+                        href="{{ route('reports.sales') }}">
                         <i class="icon">
                             <i class="ri-bar-chart-box-line"></i>
                         </i>
@@ -323,11 +324,96 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link {{ request()->routeIs('reports.profit*') ? 'active' : '' }}"
+                        href="{{ route('reports.profit') }}">
                         <i class="icon">
                             <i class="ri-pie-chart-line"></i>
                         </i>
                         <span class="item-name">Profit Report</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('reports.stock') || request()->routeIs('reports.stock.csv') ? 'active' : '' }}"
+                        href="{{ route('reports.stock') }}">
+                        <i class="icon">
+                            <i class="ri-archive-line"></i>
+                        </i>
+                        <span class="item-name">Stock Report</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('reports.stock-movement*') ? 'active' : '' }}"
+                        href="{{ route('reports.stock-movement') }}">
+                        <i class="icon">
+                            <i class="ri-arrow-left-right-line"></i>
+                        </i>
+                        <span class="item-name">Stock Movement</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('reports.low-stock*') ? 'active' : '' }}"
+                        href="{{ route('reports.low-stock') }}">
+                        <i class="icon"><i class="ri-alarm-warning-line"></i></i>
+                        <span class="item-name">Low Stock</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('reports.slow-moving*') ? 'active' : '' }}"
+                        href="{{ route('reports.slow-moving') }}">
+                        <i class="icon"><i class="ri-timer-line"></i></i>
+                        <span class="item-name">Slow Moving</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('reports.fast-moving*') ? 'active' : '' }}"
+                        href="{{ route('reports.fast-moving') }}">
+                        <i class="icon"><i class="ri-rocket-line"></i></i>
+                        <span class="item-name">Fast Moving</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('reports.stock-aging*') ? 'active' : '' }}"
+                        href="{{ route('reports.stock-aging') }}">
+                        <i class="icon"><i class="ri-calendar-event-line"></i></i>
+                        <span class="item-name">Stock Aging</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('reports.stock-valuation*') ? 'active' : '' }}"
+                        href="{{ route('reports.stock-valuation') }}">
+                        <i class="icon"><i class="ri-money-dollar-circle-line"></i></i>
+                        <span class="item-name">Stock Valuation</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('reports.stock-discrepancy*') ? 'active' : '' }}"
+                        href="{{ route('reports.stock-discrepancy') }}">
+                        <i class="icon"><i class="ri-scales-3-line"></i></i>
+                        <span class="item-name">Stock Discrepancy</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('reports.transfer-pending*') ? 'active' : '' }}"
+                        href="{{ route('reports.transfer-pending') }}">
+                        <i class="icon"><i class="ri-truck-line"></i></i>
+                        <span class="item-name">Transfer Pending</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('reports.stock-card*') ? 'active' : '' }}"
+                        href="{{ route('reports.stock-card') }}">
+                        <i class="icon"><i class="ri-file-list-3-line"></i></i>
+                        <span class="item-name">Stock Card</span>
                     </a>
                 </li>
                 @endif

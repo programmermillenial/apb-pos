@@ -15,7 +15,7 @@ return new class extends Migration
         // Migrate data dari products ke product_outlets
         DB::statement('
             INSERT INTO product_outlets (product_id, outlet_id, stock, created_at, updated_at)
-            SELECT id, outlet_id, stock, NOW(), NOW()
+            SELECT id, outlet_id, stock, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
             FROM products
             WHERE outlet_id IS NOT NULL
         ');
