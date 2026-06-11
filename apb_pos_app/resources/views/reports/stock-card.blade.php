@@ -12,7 +12,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form method="GET" action="{{ route('reports.stock-card') }}" class="row g-3 align-items-end mb-4">
+                    <form method="GET" action="{{ route('reports.stock-card') }}" class="row g-3 align-items-end mb-4" data-report-filter>
                         <div class="col-md-2">
                             <label class="form-label">Tanggal Awal</label>
                             <input type="date" name="start_date" class="form-control" value="{{ $startDate }}">

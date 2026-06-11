@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form method="GET" class="row g-3 align-items-end mb-4">
+                    <form method="GET" class="row g-3 align-items-end mb-4" data-report-filter>
                         @isset($startDate)
                             <div class="col-md-2">
                                 <label class="form-label">Tanggal Awal</label>

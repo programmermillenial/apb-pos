@@ -494,6 +494,111 @@
                 }
             });
         }
+
+        function isReportPage() {
+            return window.location.pathname.includes('/reports/');
+        }
+
+        function buildReportFilterUrl(form) {
+            const formAction = form.getAttribute('action') || window.location.href;
+            const url = new URL(formAction, window.location.origin);
+            const formData = new FormData(form);
+
+            url.search = '';
+            formData.forEach((value, key) => {
+                if (value !== null && value !== '') {
+                    url.searchParams.append(key, value);
+                }
+            });
+
+            return url;
+        }
+
+        function setReportLoading(form, isLoading) {
+            if (!form) {
+                return;
+            }
+
+            const button = form.querySelector('button[type="submit"]');
+
+            if (isLoading) {
+                if (button) {
+                    button.disabled = true;
+                }
+
+                Swal.fire({
+                    title: 'Loading',
+                    text: 'Sedang memuat report...',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    showConfirmButton: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+                return;
+            }
+
+            if (button) {
+                button.disabled = false;
+            }
+
+            Swal.close();
+        }
+
+        function replaceReportContent(html) {
+            const parser = new DOMParser();
+            const nextDocument = parser.parseFromString(html, 'text/html');
+            const currentContent = document.querySelector('.content-inner');
+            const nextContent = nextDocument.querySelector('.content-inner');
+
+            if (!currentContent || !nextContent) {
+                throw new Error('Konten report tidak ditemukan.');
+            }
+
+            currentContent.innerHTML = nextContent.innerHTML;
+            document.title = nextDocument.title || document.title;
+        }
+
+        async function loadReportFilter(url, pushState = true, form = null) {
+            setReportLoading(form, true);
+
+            try {
+                const response = await fetch(url.toString(), {
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'text/html'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Gagal memuat report.');
+                }
+
+                replaceReportContent(await response.text());
+
+                if (pushState) {
+                    window.history.pushState({
+                        reportFilter: true
+                    }, '', url.toString());
+                }
+            } catch (error) {
+                window.location.href = url.toString();
+            } finally {
+                setReportLoading(form, false);
+            }
+        }
+
+        $(document).on('submit', '.content-inner form[data-report-filter]', function(e) {
+            e.preventDefault();
+            loadReportFilter(buildReportFilterUrl(this), true, this);
+        });
+
+        window.addEventListener('popstate', function() {
+            if (isReportPage()) {
+                loadReportFilter(new URL(window.location.href), false);
+            }
+        });
     </script>
 
     @stack('scripts')

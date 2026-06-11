@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form method="GET" action="{{ route('reports.stock') }}" class="row g-3 align-items-end mb-4">
+                    <form method="GET" action="{{ route('reports.stock') }}" class="row g-3 align-items-end mb-4" data-report-filter>
                         <div class="col-md-5">
                             <label class="form-label">Outlet</label>
                             <select name="outlet_id" class="form-select">
