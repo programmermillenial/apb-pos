@@ -17,25 +17,21 @@ class BrandSeeder extends Seeder
     {
         $brands = [
             'Samsung',
-            'LG',
-            'Sharp',
-            'Polytron',
-            'Sony',
-            'TCL',
-            'Xiaomi',
-            'Oppo',
-            'Vivo',
-            'Realme',
+            'Apple',
             'Asus',
             'Acer',
             'HP',
-            'Canon',
-            'Epson',
+            'Dell',
+            'Xiaomi',
+            'Oppo',
+            'Vivo',
         ];
 
         foreach ($brands as $brand) {
-            Brand::create([
+            Brand::updateOrCreate([
+                'outlet_id' => null,
                 'name' => $brand,
+            ], [
                 'slug'        => Str::slug($brand),
                 'description' => $brand,
                 'is_active' => 1,

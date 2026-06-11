@@ -58,6 +58,8 @@ class OutletController extends Controller
             'name' => 'required|string|max:255',
             'address' => 'nullable|string',
             'phone' => 'nullable|string|max:50',
+            'latitude' => 'nullable|numeric|between:-90,90',
+            'longitude' => 'nullable|numeric|between:-180,180',
             'is_active' => 'required|boolean',
         ]);
 
@@ -67,6 +69,8 @@ class OutletController extends Controller
             'name' => $request->name,
             'address' => $request->address,
             'phone' => $request->phone,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
             'is_active' => $request->is_active,
         ]);
 
@@ -95,6 +99,8 @@ class OutletController extends Controller
             'name' => 'required|string|max:255',
             'address' => 'nullable|string',
             'phone' => 'nullable|string|max:50',
+            'latitude' => 'nullable|numeric|between:-90,90',
+            'longitude' => 'nullable|numeric|between:-180,180',
             'is_active' => 'required|boolean',
         ]);
 
@@ -103,6 +109,8 @@ class OutletController extends Controller
             'name' => $request->name,
             'address' => $request->address,
             'phone' => $request->phone,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
             'is_active' => $request->is_active,
         ]);
 

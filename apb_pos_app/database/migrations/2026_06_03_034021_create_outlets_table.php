@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('code');
             $table->string('phone')->nullable();
             $table->text('address')->nullable();
+            $table->decimal('latitude', 10, 7)->nullable();
+            $table->decimal('longitude', 10, 7)->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
             $table->unique(['store_id', 'code']);

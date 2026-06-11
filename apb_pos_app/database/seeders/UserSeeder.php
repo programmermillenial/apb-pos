@@ -33,28 +33,14 @@ class UserSeeder extends Seeder
 
             $code = strtolower($outlet->code);
 
-            // Manager
             User::updateOrCreate(
-                ['username' => 'manager_' . $code],
+                ['username' => 'user_' . $code],
                 [
-                    'name'      => 'Manager ' . $outlet->name,
-                    'username'  => 'manager_' . $code,
-                    'email'     => 'manager_' . $code . '@apbpos.test',
+                    'name'      => 'User ' . $outlet->name,
+                    'username'  => 'user_' . $code,
+                    'email'     => 'user_' . $code . '@apbpos.test',
                     'password'  => Hash::make('password'),
                     'role'      => 'manager',
-                    'outlet_id' => $outlet->id,
-                ]
-            );
-
-            // Cashier
-            User::updateOrCreate(
-                ['username' => 'cashier_' . $code],
-                [
-                    'name'      => 'Cashier ' . $outlet->name,
-                    'username'  => 'cashier_' . $code,
-                    'email'     => 'cashier_' . $code . '@apbpos.test',
-                    'password'  => Hash::make('password'),
-                    'role'      => 'cashier',
                     'outlet_id' => $outlet->id,
                 ]
             );

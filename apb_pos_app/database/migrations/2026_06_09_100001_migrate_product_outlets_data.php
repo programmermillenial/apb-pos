@@ -12,7 +12,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Migrate data dari products ke product_outlets
+        if (!Schema::hasColumn('products', 'outlet_id') || !Schema::hasColumn('products', 'stock')) {
+            return;
+        }
+
         DB::statement('
             INSERT INTO product_outlets (product_id, outlet_id, stock, created_at, updated_at)
             SELECT id, outlet_id, stock, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
@@ -20,12 +23,10 @@ return new class extends Migration
             WHERE outlet_id IS NOT NULL
         ');
 
-        // Drop foreign key constraint terlebih dahulu
         Schema::table('products', function (Blueprint $table) {
             $table->dropForeign(['outlet_id']);
         });
 
-        // Hapus columns dari products
         Schema::table('products', function (Blueprint $table) {
             $table->dropColumn(['outlet_id', 'stock']);
         });
@@ -36,12 +37,16 @@ return new class extends Migration
      */
     public function down(): void
     {
+        if (Schema::hasColumn('products', 'outlet_id') || Schema::hasColumn('products', 'stock')) {
+            Schema::dropIfExists('product_outlets');
+            return;
+        }
+
         Schema::table('products', function (Blueprint $table) {
             $table->foreignId('outlet_id')->nullable()->constrained('outlets')->nullOnDelete();
             $table->integer('stock')->default(0);
         });
 
-        // Rollback data
         DB::statement('
             UPDATE products p
             SET outlet_id = (SELECT outlet_id FROM product_outlets WHERE product_id = p.id LIMIT 1),

@@ -16,21 +16,15 @@ class ProductCategorySeeder extends Seeder
     {
         $categories = [
             'Smartphone',
-            'Televisi',
-            'Kulkas',
-            'AC',
-            'Monitor',
-            'Laptop',
-            'Printer',
-            'Speaker',
-            'Mesin Cuci',
-            'Aksesoris',
+            'Notebook',
+            'Tablet',
         ];
 
         foreach ($categories as $category) {
-            ProductCategory::create([
-                'name' => $category,
+            ProductCategory::updateOrCreate([
                 'slug' => Str::slug($category),
+            ], [
+                'name' => $category,
                 'description' => $category,
                 'is_active' => 1,
             ]);

@@ -67,6 +67,13 @@ class DashboardController extends Controller
 
     private function resolveCoordinate(Outlet $outlet): array
     {
+        if ($outlet->latitude !== null && $outlet->longitude !== null) {
+            return [
+                'lat' => (float) $outlet->latitude,
+                'lng' => (float) $outlet->longitude,
+            ];
+        }
+
         $cityCoordinates = [
             'JKT' => ['lat' => -6.2088, 'lng' => 106.8456],
             'JAKARTA' => ['lat' => -6.2088, 'lng' => 106.8456],
@@ -78,6 +85,16 @@ class DashboardController extends Controller
             'MEDAN' => ['lat' => 3.5952, 'lng' => 98.6722],
             'MKS' => ['lat' => -5.1477, 'lng' => 119.4327],
             'MAKASSAR' => ['lat' => -5.1477, 'lng' => 119.4327],
+            'SMG' => ['lat' => -6.9667, 'lng' => 110.4167],
+            'SEMARANG' => ['lat' => -6.9667, 'lng' => 110.4167],
+            'DPS' => ['lat' => -8.6705, 'lng' => 115.2126],
+            'DENPASAR' => ['lat' => -8.6705, 'lng' => 115.2126],
+            'YGY' => ['lat' => -7.7956, 'lng' => 110.3695],
+            'YOGYAKARTA' => ['lat' => -7.7956, 'lng' => 110.3695],
+            'PLB' => ['lat' => -2.9761, 'lng' => 104.7754],
+            'PALEMBANG' => ['lat' => -2.9761, 'lng' => 104.7754],
+            'BPN' => ['lat' => -1.2379, 'lng' => 116.8529],
+            'BALIKPAPAN' => ['lat' => -1.2379, 'lng' => 116.8529],
         ];
 
         $searchText = strtoupper($outlet->code . ' ' . $outlet->name . ' ' . $outlet->address);
